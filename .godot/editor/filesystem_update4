@@ -1,0 +1,8 @@
+res://base_tile_class.tscn
+res://scenes/base_tile_class.tscn
+res://scenes/tile_map.tscn
+res://scenes/tile_map.gd
+res://scripts/base_tile_class.gd
+res://scenes/indicator_tile.tscn
+res://scenes/game.tscn
+res://scripts/tile_script.gd
