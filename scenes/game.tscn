@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqsmsrde7lp5l"]
+[gd_scene load_steps=3 format=4 uid="uid://bqsmsrde7lp5l"]
 
 [ext_resource type="PackedScene" uid="uid://dw0nyom6s72ki" path="res://scenes/tile_map.tscn" id="1_1djd7"]
+[ext_resource type="PackedScene" uid="uid://ckex305fqbo2t" path="res://scenes/mouse_cam.tscn" id="2_c53qk"]
 
 [node name="Game" type="Node2D"]
 
 [node name="ship" parent="." instance=ExtResource("1_1djd7")]
 unique_name_in_owner = true
+tile_map_data = PackedByteArray("AAD+/wIAAQAAAAAAAQD//wIAAQAAAAAAAQDz//z/AAAAAAAAAADz//3/AAAAAAEAAADz//7/AAAAAAAAAADz////AAAAAAEAAAD0//z/AAABAAAAAAD0//3/AAABAAEAAAD0//7/AAABAAAAAAD0////AAABAAEAAAD3//3/AAAAAAAAAAD3//7/AAAAAAEAAAD4//3/AAABAAAAAAD4//7/AAABAAEAAAD5/wAAAAAAAAAAAAD5/wEAAAAAAAEAAAD6/wAAAAABAAAAAAD6/wEAAAABAAEAAAD8/wAAAQAAAAAAAQD8/wEAAQAAAAAAAQD9//3/AQAAAAAAAQD9/wIAAQAAAAAAAQAAAAAAAQAAAAAAAQAAAAIAAQAAAAAAAQAAAAUAAAABAAEAAAAAAAYAAAABAAAAAAABAAIAAQAAAAAAAQABAAUAAAAAAAEAAAABAAYAAAAAAAAAAAACAAIAAQAAAAAAAQADAP3/AQAAAAAAAQADAAIAAQAAAAAAAQAEAAAAAQAAAAAAAQAEAAEAAQAAAAAAAQAFAAUAAAAAAAAAAAAFAAYAAAAAAAEAAAAGAAUAAAABAAAAAAAGAAYAAAABAAEAAAA=")
+
+[node name="mouse_cam" parent="." instance=ExtResource("2_c53qk")]

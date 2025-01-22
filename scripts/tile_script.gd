@@ -28,7 +28,6 @@ func get_quadrant(orgn: Vector2, pt: Vector2) -> int:
 func get_vector_of_closest_side(close_tile_vec: Vector2, drop_vector: Vector2) -> Vector2:
 	var closest_opening: Vector2 = close_tile_vec
 	var quad:int = get_quadrant(close_tile_vec, drop_vector)
-	print("quad ", quad)
 	
 	if(quad == 0):
 		closest_opening.y += 64
@@ -41,5 +40,4 @@ func get_vector_of_closest_side(close_tile_vec: Vector2, drop_vector: Vector2) -
 	else:
 		print("Failure in tile_script")
 	
-	print("placement ", closest_opening)
 	return closest_opening
