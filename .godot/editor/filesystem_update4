@@ -1,0 +1,8 @@
+res://scenes/game.tscn
+res://scripts/base_tile_class.gd
+res://scenes/base_tile_class.tscn
+res://scenes/tile_map.tscn
+res://scenes/indicator_tile.tscn
+res://scenes/mouse_cam.tscn
+res://shaders/tile_map.gdshader
+res://shaders/base_tile_class.gdshader

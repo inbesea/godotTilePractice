@@ -1,7 +1,11 @@
-[gd_scene load_steps=6 format=4 uid="uid://dw0nyom6s72ki"]
+[gd_scene load_steps=8 format=4 uid="uid://dw0nyom6s72ki"]
 
+[ext_resource type="Shader" path="res://shaders/tile_map.gdshader" id="1_bpvk0"]
 [ext_resource type="Texture2D" uid="uid://dfyrw8ou6roxv" path="res://assets/icon.svg" id="1_t5uyc"]
 [ext_resource type="PackedScene" uid="uid://ciyxgwy7yxju5" path="res://scenes/base_tile_class.tscn" id="2_j2v7s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t0ijy"]
+shader = ExtResource("1_bpvk0")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wlin8"]
 texture = ExtResource("1_t5uyc")
@@ -21,5 +25,6 @@ sources/0 = SubResource("TileSetAtlasSource_wlin8")
 sources/1 = SubResource("TileSetScenesCollectionSource_snk1x")
 
 [node name="tileMap" type="TileMapLayer"]
+material = SubResource("ShaderMaterial_t0ijy")
 tile_map_data = PackedByteArray("AAD/////AAABAAAAAAAHAAMAAQAAAAAAAQALAAMAAQAAAAAAAQD+////AAAAAAAAAAD+/wAAAAAAAAEAAAD+/wEAAAAAAAAAAAD+/wIAAAAAAAEAAAD//wAAAAABAAEAAAD//wEAAAABAAAAAAD//wIAAAABAAEAAAACAAAAAAAAAAAAAAACAAEAAAAAAAEAAAADAAAAAAABAAAAAAADAAEAAAABAAEAAAAHAAQAAQAAAAAAAQAIAAAAAQAAAAAAAQAIAAUAAQAAAAAAAQAJAAUAAQAAAAAAAQAKAAUAAQAAAAAAAQALAAUAAQAAAAAAAQALAAgAAAABAAEAAAALAAkAAAABAAAAAAAMAAUAAQAAAAAAAQAMAAgAAAAAAAEAAAAMAAkAAAAAAAAAAAANAAUAAQAAAAAAAQAOAAAAAQAAAAAAAQAOAAUAAQAAAAAAAQAPAAMAAQAAAAAAAQAPAAQAAQAAAAAAAQAQAAgAAAAAAAAAAAAQAAkAAAAAAAEAAAARAAgAAAABAAAAAAARAAkAAAABAAEAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAEAAAAFAAMAAAABAAAAAAAFAAQAAAABAAEAAAA=")
 tile_set = SubResource("TileSet_c66rc")
