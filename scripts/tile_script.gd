@@ -1,5 +1,8 @@
 extends Node
 
+
+
+
 ## Returns an int representing the quadrant the point is relative to the origin. 
 func get_quadrant(orgn: Vector2, pt: Vector2) -> int:
 	# Should return the difference between the placed position and middle of the close tile.
