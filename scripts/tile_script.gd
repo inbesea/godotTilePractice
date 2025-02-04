@@ -1,7 +1,11 @@
 extends Node
 
 
-
+func get_tile_index(pos: Vector2) -> Vector2i:
+	var index:Vector2i
+	index.x = snapped(pos.x - 32, 64) / 64
+	index.y = snapped(pos.y - 32, 64) / 64
+	return index
 
 ## Returns an int representing the quadrant the point is relative to the origin. 
 func get_quadrant(orgn: Vector2, pt: Vector2) -> int:

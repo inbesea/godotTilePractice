@@ -7,6 +7,7 @@ var north: Tile
 var east: Tile
 var south: Tile
 var west: Tile
+var index: Vector2i
 var area: Area2D
 var new_position:Vector2
 var held = false
@@ -16,6 +17,7 @@ var indicator
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	area = $Area2D
+	update_index()
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,7 +25,9 @@ func _process(delta):
 	if held:
 		update_tile_position_when_dragging()
 		indicator.position = get_new_tile_position()
-		
+
+func update_index():
+	index = TileScript.get_tile_index(position)
 
 func update_tile_position_when_dragging():
 	new_position = get_global_mouse_position()
@@ -39,6 +43,7 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 		held = true
 		z_index = 5
 		createIndicator()
+		print(ship.get_tile(get_global_mouse_position()))
 		
 	if event.is_action_released("click"):
 		if(held == false):
@@ -47,6 +52,8 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			held = false
 			z_index = 0
 			set_this_to_indicator_position_and_remove_indicator()
+			update_index()
+			print("Position: ", position, " index: ", index)
 
 
 #func get_clicked_tile_power():
@@ -90,10 +97,8 @@ func get_new_tile_position():
 	
 	return new_position
 
-
-
 func get_closest_tile_or_null():
-	var all_tiles:Array[Tile] = ship.get_tree().get_nodes_in_group("tiles") as Array[Tile]
+	var all_tiles = ship.get_tree().get_nodes_in_group("tiles")
 	var closest_tile = null
 		
 	if (all_tiles.size() > 0):

@@ -3,9 +3,11 @@ res://shaders/tile_map.gdshader
 res://scripts/base_tile_class.gd
 res://shaders/base_tile_class.gdshader
 res://scenes/tile_map.gd
+res://test.tscn
 res://scenes/game.tscn
 res://scenes/base_tile_class.tscn
 res://scenes/indicator_tile.tscn
 res://scenes/mouse_cam.tscn
 res://scenes/asteroid_base.tscn
-res://test.tscn
+res://scripts/tile_map.gd
+res://scripts/tile_script.gd

@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://shaders/tile_map.gdshader" id="1_bpvk0"]
 [ext_resource type="Texture2D" uid="uid://dfyrw8ou6roxv" path="res://assets/icon.svg" id="1_t5uyc"]
 [ext_resource type="PackedScene" uid="uid://ciyxgwy7yxju5" path="res://scenes/base_tile_class.tscn" id="2_j2v7s"]
-[ext_resource type="Script" path="res://scenes/tile_map.gd" id="4_enoio"]
+[ext_resource type="Script" path="res://scripts/tile_map.gd" id="4_enoio"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t0ijy"]
 shader = ExtResource("1_bpvk0")
