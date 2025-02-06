@@ -15,14 +15,16 @@ func _input(event: InputEvent) -> void:
 		#set_cell(pos, 1, Vector2(0,0), 0 )
 		#set_cell()
 		
-		print(pos)
-		print("tile cell atlas id : ", get_cell_atlas_coords(pos))
-		print("cell source id :", get_cell_source_id(pos))
-		print("cell tile data :", get_cell_tile_data(pos))
+		#print(pos)
+		#print("tile cell atlas id : ", get_cell_atlas_coords(pos))
+		#print("cell source id :", get_cell_source_id(pos))
+		#print("cell tile data :", get_cell_tile_data(pos))
 		print("neighbors to ", pos , " : " , get_surrounding_cells(pos))
 		#get_tile(pos)
 		#print("All tiles:", get_all_tiles())
-		print(get_tile(global_pos).position)
+		var tile:Tile = get_tile(global_pos)
+		if(tile != null):
+			print(tile.position)
 
 func get_all_tiles() -> Array[Node]:
 	pass

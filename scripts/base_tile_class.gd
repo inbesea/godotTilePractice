@@ -52,7 +52,6 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			held = false
 			z_index = 0
 			set_this_to_indicator_position_and_remove_indicator()
-			update_index()
 			print("Position: ", position, " index: ", index)
 
 
@@ -68,6 +67,15 @@ func set_this_to_indicator_position_and_remove_indicator():
 	if indicator != null:
 		position = indicator.position # Set to the indicator
 		indicator.queue_free()
+		update_index()
+		update_neighbors()
+
+## Creates references to the neighbors. 
+func update_neighbors():
+	# get all neighbors. 
+	var side_inices:Array[Vector2i] = ship.get_surrounding_cells(index)
+	for pos in side_inices:
+		ship.get_tile(pos)
 
 func createIndicator():
 		var indicator_scene = load("res://scenes/indicator_tile.tscn")
