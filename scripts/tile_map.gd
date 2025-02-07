@@ -12,22 +12,14 @@ func _input(event: InputEvent) -> void:
 		var pos = global_pos
 		pos.x = snapped( (pos.x - 32),64 ) / 64
 		pos.y = snapped( (pos.y - 32),64 ) / 64
-		#set_cell(pos, 1, Vector2(0,0), 0 )
-		#set_cell()
 		
-		#print(pos)
-		#print("tile cell atlas id : ", get_cell_atlas_coords(pos))
-		#print("cell source id :", get_cell_source_id(pos))
-		#print("cell tile data :", get_cell_tile_data(pos))
 		print("neighbors to ", pos , " : " , get_surrounding_cells(pos))
-		#get_tile(pos)
-		#print("All tiles:", get_all_tiles())
+		
 		var tile:Tile = get_tile(global_pos)
 		if(tile != null):
 			print(tile.position)
 
 func get_all_tiles() -> Array[Node]:
-	pass
 	var all_tiles:= get_tree().get_nodes_in_group("tiles")
 	
 	for obj in all_tiles:
@@ -71,6 +63,38 @@ func get_tile(pos:Vector2i) -> Tile:
 	if returnTile == null:
 		return null
 	return returnTile
+
+func get_closest_internal_vacancy(pos : Vector2) -> Vector2:
+	var return_vector : Vector2 = Vector2(200,200)
+	var all_tiles = get_tree().get_nodes_in_group("tiles")
+	var closest_edge : Tile
+	
+	for tiles in all_tiles:
+		if (all_tiles.size() > 0):
+			closest_edge = all_tiles[0]
+	
+	return return_vector
+
+func get_closest_tile_or_null():
+	var all_tiles = get_tree().get_nodes_in_group("tiles")
+	var closest_tile = null
+		
+	if (all_tiles.size() > 0):
+		if all_tiles[0] == self:
+			closest_tile = all_tiles[1]
+		else:
+			closest_tile = all_tiles[0]
+			
+		for tile in all_tiles:
+			if tile == self:
+				continue
+			var distance_to_this_tile = global_position.distance_squared_to(tile.global_position)
+			var distance_to_closest_tile = global_position.distance_squared_to(closest_tile.global_position)
+			if (distance_to_this_tile < distance_to_closest_tile):
+				closest_tile = tile
+
+	#print(closest_tile.position)
+	return closest_tile
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -54,6 +54,7 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			held = false
 			z_index = 0
 			set_this_to_indicator_position_and_remove_indicator()
+			self.add_to_group("tiles")
 			print("Position: ", position, " index: ", index)
 
 
@@ -89,7 +90,8 @@ func self_pickup():
 	if north != null : 
 		north.south = null
 		north.update_isEdge()
-		
+	
+	self.remove_from_group("tiles")
 
 ## Creates references to the neighbors. 
 func update_neighbors():
@@ -147,19 +149,19 @@ func createIndicator():
 		get_node("StupidBufferNode").add_child(indicator)
 
 func get_new_tile_position():
+	var global_mouse_pos = get_global_mouse_position()
 	var new_position : Vector2 = Vector2(200,200) # Dummy value
 
 	# If we release on a tile we need to handle that
-
-	var closest_tile:Vector2 = get_closest_tile_or_null().position
-
-	var placement_vect = TileScript.get_vector_of_closest_side(closest_tile, get_global_mouse_position())
-
-	#print("closest tile: (", (closest_tile.x - 32)/64, ",", (closest_tile.y - 32)/64 ,")")
-	#print("placement_vect : ",snapped(placement_vect.x,64), ",", snapped(placement_vect.y,64))
+	var tile_under_current_position = ship.get_tile(global_mouse_pos)
 	
-	new_position.x = snapped(placement_vect.x, 64)
-	new_position.y = snapped(placement_vect.y, 64)
+	if tile_under_current_position == null : 
+		var closest_tile:Vector2 = get_closest_tile_or_null().position
+		var placement_vect = TileScript.get_vector_of_closest_side(closest_tile, get_global_mouse_position())	
+		new_position.x = snapped(placement_vect.x, 64)
+		new_position.y = snapped(placement_vect.y, 64)
+	else : # Dropped on a tile
+		var closest_internal_vacancy : Vector2 = ship.get_closest_internal_vacancy(global_mouse_pos)
 	
 	## Align to grid (BAD FIX)
 	new_position.x -= 32
