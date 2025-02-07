@@ -39,18 +39,15 @@ func update_tile_position_when_dragging():
 	position = new_position
 
 func _on_area_2d_input_event(viewport, event, shape_idx):
-	#print(ship.get_cell_source_id(position))
-	#print(position," Surrounding cells : ",ship.get_surrounding_cells(position))
-	#print("Cell Data: ",ship.get_cell_tile_data(position))
-	#print("Cell SourceID: ",ship.get_cell_source_id(position))
 			
-	if event.is_action_pressed("click"):
+	if event.is_action_pressed("click"): # Pickup
 		held = true
 		z_index = 5
 		createIndicator()
+		self_pickup()
 		print(ship.get_tile(get_global_mouse_position()))
 		
-	if event.is_action_released("click"):
+	if event.is_action_released("click"): # Released
 		if(held == false):
 			print("dropped dragged on a tile!")
 		else:
@@ -75,38 +72,45 @@ func set_this_to_indicator_position_and_remove_indicator():
 		update_index()
 		update_neighbors()
 
-## Creates references to the neighbors. 
-func update_neighbors():
-	# Get indices around self and set each side to the tile there, nulling out self from the previous
-	# tile neighbors. 
+func self_pickup():
 	var side_inices:Array[Vector2i] = ship.get_surrounding_cells(index)
 	if east != null : 
 		east.west = null # Remove ourselves from old
 		east.update_isEdge() # Update old tile's edge status
-	east = ship.get_tile_from_indices(side_inices[0]) # try to get new tile
-	if east != null : # Update new tile with neighbor info. 
-		east.west = self
-		east.update_isEdge()
 		
 	if south != null : 
 		south.north = null
-		south.update_isEdge()
-	south = ship.get_tile_from_indices(side_inices[1])
-	if south != null : 
-		south.north = self
 		south.update_isEdge()
 	
 	if west != null : 
 		west.east = null
 		west.update_isEdge()
+	
+	if north != null : 
+		north.south = null
+		north.update_isEdge()
+		
+
+## Creates references to the neighbors. 
+func update_neighbors():
+	# Get indices around self and set each side to the tile there, nulling out self from the previous
+	# tile neighbors. 
+	var side_inices:Array[Vector2i] = ship.get_surrounding_cells(index)
+	east = ship.get_tile_from_indices(side_inices[0]) # try to get new tile
+	if east != null : # Update new tile with neighbor info. 
+		east.west = self
+		east.update_isEdge()
+		
+	south = ship.get_tile_from_indices(side_inices[1])
+	if south != null : 
+		south.north = self
+		south.update_isEdge()
+	
 	west = ship.get_tile_from_indices(side_inices[2])
 	if west != null : 
 		west.east = self
 		west.update_isEdge()
 	
-	if north != null : 
-		north.south = null
-		north.update_isEdge()
 	north = ship.get_tile_from_indices(side_inices[3])
 	if north != null : 
 		north.south = self
