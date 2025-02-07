@@ -36,10 +36,27 @@ func get_all_tiles() -> Array[Node]:
 		
 	return all_tiles
 
+func get_tile_from_indices(posIndex : Vector2i) -> Tile:
+	var all_tiles = get_tree().get_nodes_in_group("tiles")
+	var returnTile:Tile = null
+	for tile in all_tiles:
+		tile is Tile
+		if tile.index == posIndex:
+			if returnTile != null:
+				print("Issue with overlapping indices encountered for index :", tile.index)
+			else: 
+				returnTile = tile
+			
+		#print("Index: ",tile.index)
+		
+	if returnTile == null:
+		return null
+	return returnTile
+
 ## Pass in world co-ords and they will be translated to index values
 func get_tile(pos:Vector2i) -> Tile:
 	var all_tiles = get_tree().get_nodes_in_group("tiles")
-	var returnTile:Tile
+	var returnTile:Tile = null
 	var posIndex = TileScript.get_tile_index(pos)
 	for tile in all_tiles:
 		tile is Tile

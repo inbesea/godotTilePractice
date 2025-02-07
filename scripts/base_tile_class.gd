@@ -8,7 +8,10 @@ var east: Tile
 var south: Tile
 var west: Tile
 var index: Vector2i
+var isEdge : bool
+
 var area: Area2D
+var label : Label
 var new_position:Vector2
 var held = false
 var indicator
@@ -17,7 +20,9 @@ var indicator
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	area = $Area2D
+	label = $Label
 	update_index()
+	update_neighbors()
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -72,10 +77,64 @@ func set_this_to_indicator_position_and_remove_indicator():
 
 ## Creates references to the neighbors. 
 func update_neighbors():
-	# get all neighbors. 
+	# Get indices around self and set each side to the tile there, nulling out self from the previous
+	# tile neighbors. 
 	var side_inices:Array[Vector2i] = ship.get_surrounding_cells(index)
-	for pos in side_inices:
-		ship.get_tile(pos)
+	if east != null : 
+		east.west = null # Remove ourselves from old
+		east.update_isEdge() # Update old tile's edge status
+	east = ship.get_tile_from_indices(side_inices[0]) # try to get new tile
+	if east != null : # Update new tile with neighbor info. 
+		east.west = self
+		east.update_isEdge()
+		
+	if south != null : 
+		south.north = null
+		south.update_isEdge()
+	south = ship.get_tile_from_indices(side_inices[1])
+	if south != null : 
+		south.north = self
+		south.update_isEdge()
+	
+	if west != null : 
+		west.east = null
+		west.update_isEdge()
+	west = ship.get_tile_from_indices(side_inices[2])
+	if west != null : 
+		west.east = self
+		west.update_isEdge()
+	
+	if north != null : 
+		north.south = null
+		north.update_isEdge()
+	north = ship.get_tile_from_indices(side_inices[3])
+	if north != null : 
+		north.south = self
+		north.update_isEdge()
+	
+	# Set isEdge based on the number of neighbors
+	update_isEdge()
+
+func count_neighbors() -> int:
+	var count : int = 0
+	if east != null : count += 1
+	if south != null : count += 1
+	if west != null : count += 1
+	if north != null : count += 1
+	print("neighbor count is : ",count)
+	return count
+
+func update_isEdge():
+	if count_neighbors() < 4 :
+		isEdge = true
+		print("setting to true!")
+	else:
+		isEdge = false
+		print("setting to false!")
+	
+	var str = "Is Edge:\n {0}"
+	label.set_text(str.format([isEdge]))
+	print("isEdge:",isEdge)
 
 func createIndicator():
 		var indicator_scene = load("res://scenes/indicator_tile.tscn")

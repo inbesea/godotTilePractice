@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ciyxgwy7yxju5"]
+[gd_scene load_steps=7 format=3 uid="uid://ciyxgwy7yxju5"]
 
 [ext_resource type="Script" path="res://scripts/base_tile_class.gd" id="1_jbbuk"]
 [ext_resource type="Shader" path="res://shaders/base_tile_class.gdshader" id="2_252vo"]
 [ext_resource type="Texture2D" uid="uid://dfyrw8ou6roxv" path="res://assets/icon.svg" id="2_rnwji"]
+[ext_resource type="FontFile" uid="uid://c13wt504ie55o" path="res://assets/fonts/PixelOperator8.ttf" id="4_pii3f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1nvrv"]
 shader = ExtResource("2_252vo")
@@ -25,6 +26,16 @@ texture = ExtResource("2_rnwji")
 shape = SubResource("RectangleShape2D_i5vl6")
 
 [node name="StupidBufferNode" type="Node" parent="."]
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = -9.0
+theme_override_fonts/font = ExtResource("4_pii3f")
+theme_override_font_sizes/font_size = 8
+text = "aoeu"
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_shape_entered" from="Area2D" to="." method="_on_area_2d_mouse_shape_entered"]
