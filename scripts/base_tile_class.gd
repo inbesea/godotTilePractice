@@ -162,6 +162,7 @@ func get_new_tile_position():
 		new_position.y = snapped(placement_vect.y, 64)
 	else : # Dropped on a tile
 		var closest_internal_vacancy : Vector2 = ship.get_closest_internal_vacancy(global_mouse_pos)
+		return closest_internal_vacancy
 	
 	## Align to grid (BAD FIX)
 	new_position.x -= 32
@@ -169,6 +170,14 @@ func get_new_tile_position():
 	## The fix should probably align the grid so the positions are all correct. 
 	
 	return new_position
+
+func get_empty_side_vectors() -> Array[Vector2]:
+	var results : Array[Vector2]
+	if(north == null): results.append(Vector2(position.x, position.y - 64))
+	if(south == null): results.append(Vector2(position.x, position.y + 64))
+	if(east == null): results.append(Vector2(position.x  + 64, position.y))
+	if(west == null): results.append(Vector2(position.x  - 64, position.y))
+	return results
 
 func get_closest_tile_or_null():
 	var all_tiles = ship.get_tree().get_nodes_in_group("tiles")

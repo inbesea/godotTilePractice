@@ -48,3 +48,12 @@ func get_vector_of_closest_side(close_tile_vec: Vector2, drop_vector: Vector2) -
 		print("Failure in tile_script")
 	
 	return closest_opening
+
+func get_closest_vect(list_of_vectors: Array[Vector2], target_vector: Vector2):
+	var closest_vect = list_of_vectors[0]
+	for vect in list_of_vectors :
+		var distance_to_vect = target_vector.distance_squared_to(vect)
+		var distance_to_closest_tile = target_vector.distance_squared_to(closest_vect)
+		if (distance_to_vect < distance_to_closest_tile):
+			closest_vect = vect
+	return closest_vect

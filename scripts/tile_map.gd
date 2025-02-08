@@ -70,10 +70,46 @@ func get_closest_internal_vacancy(pos : Vector2) -> Vector2:
 	var closest_edge : Tile
 	
 	for tiles in all_tiles:
-		if (all_tiles.size() > 0):
-			closest_edge = all_tiles[0]
+		if (all_tiles.size() == 0):
+			return pos # Return starting value if there are no tiles lol
+		for tile in all_tiles:
+			if !tile.isEdge: 
+				continue # Remove non-edgers from consideration
+			if closest_edge == null: # Fill in the closest edge
+				if tile.isEdge : closest_edge = tile # iiiif the tile is edge
+				else : continue # if not then skip
+			var distance_to_this_tile = pos.distance_squared_to(tile.global_position)
+			var distance_to_closest_tile = pos.distance_squared_to(closest_edge.global_position)
+			if (distance_to_this_tile < distance_to_closest_tile):
+				closest_edge = tile
+				return_vector = closest_edge.position
+	
+	if !closest_edge.isEdge : 
+		print("WTF why are you not edge")
+	var side_candidates = get_empty_diagonals(closest_edge)
+	side_candidates.append_array(closest_edge.get_empty_side_vectors())
+	
+	return_vector = TileScript.get_closest_vect(side_candidates, pos)
 	
 	return return_vector
+
+func get_empty_diagonals(closest_edge_tile:Tile) -> Array[Vector2]:
+	var results : Array[Vector2]
+	var downRight = Vector2(closest_edge_tile.position.x + 64,closest_edge_tile.position.y + 64)
+	var downLeft = Vector2(closest_edge_tile.position.x - 64,closest_edge_tile.position.y + 64)
+	var upRight = Vector2(closest_edge_tile.position.x + 64,closest_edge_tile.position.y - 64)
+	var upLeft = Vector2(closest_edge_tile.position.x - 64,closest_edge_tile.position.y - 64)
+
+# If a tile is not there it is valid for placement
+	if get_tile(downRight) == null:
+		results.append(downRight)
+	if get_tile(downLeft) == null :
+		results.append(downLeft)
+	if get_tile(upLeft) == null :
+		results.append(upLeft)
+	if get_tile(upRight) == null :
+		results.append(upRight)
+	return results
 
 func get_closest_tile_or_null():
 	var all_tiles = get_tree().get_nodes_in_group("tiles")
