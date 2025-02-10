@@ -11,3 +11,6 @@ res://scenes/mouse_cam.tscn
 res://scenes/asteroid_base.tscn
 res://scripts/tile_map.gd
 res://scripts/tile_script.gd
+res://scripts/robot_v_2.gd
+res://scenes/player.tscn
+res://character_body_2d.gd
