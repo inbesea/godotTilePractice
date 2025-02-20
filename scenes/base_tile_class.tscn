@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ciyxgwy7yxju5"]
+[gd_scene load_steps=8 format=3 uid="uid://ciyxgwy7yxju5"]
 
 [ext_resource type="Script" path="res://scripts/base_tile_class.gd" id="1_jbbuk"]
 [ext_resource type="Shader" path="res://shaders/base_tile_class.gdshader" id="2_252vo"]
@@ -11,6 +11,10 @@ shader_parameter/blue = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i5vl6"]
 size = Vector2(64, 64)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_q2bu3"]
+a = Vector2(0, -32)
+b = Vector2(0, 32)
 
 [node name="BaseTileClass" type="Node2D" groups=["tiles"]]
 script = ExtResource("1_jbbuk")
@@ -36,6 +40,36 @@ offset_bottom = -9.0
 theme_override_fonts/font = ExtResource("4_pii3f")
 theme_override_font_sizes/font_size = 8
 text = "aoeu"
+
+[node name="left_boundary" type="StaticBody2D" parent="."]
+position = Vector2(-57, -18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_boundary"]
+position = Vector2(25, 18)
+shape = SubResource("SegmentShape2D_q2bu3")
+
+[node name="up_boundary" type="StaticBody2D" parent="."]
+position = Vector2(-8, -23)
+rotation = -1.57079
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="up_boundary"]
+position = Vector2(9.00002, 7.99998)
+shape = SubResource("SegmentShape2D_q2bu3")
+
+[node name="right_boundary" type="StaticBody2D" parent="."]
+position = Vector2(-171, -54)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_boundary"]
+position = Vector2(203, 54)
+shape = SubResource("SegmentShape2D_q2bu3")
+
+[node name="down_boundary" type="StaticBody2D" parent="."]
+position = Vector2(-228, -72)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="down_boundary"]
+position = Vector2(228, 104)
+rotation = 1.57079
+shape = SubResource("SegmentShape2D_q2bu3")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_shape_entered" from="Area2D" to="." method="_on_area_2d_mouse_shape_entered"]

@@ -16,11 +16,19 @@ var new_position:Vector2
 var held = false
 var indicator
 @onready var ship: TileMapLayer = get_parent()
+@onready var up_boundary: CollisionShape2D
+@onready var right_boundary: CollisionShape2D
+@onready var down_boundary: CollisionShape2D
+@onready var left_boundary: CollisionShape2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	area = $Area2D
 	label = $Label
+	up_boundary = $up_boundary/CollisionShape2D
+	right_boundary = $right_boundary/CollisionShape2D
+	down_boundary = $down_boundary/CollisionShape2D
+	left_boundary = $left_boundary/CollisionShape2D
 	update_index()
 	update_neighbors()
 	pass # Replace with function body.
@@ -43,6 +51,7 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed("click"): # Pickup
 		held = true
 		z_index = 5
+		disableEdgeColliders()
 		createIndicator()
 		self_pickup()
 		print(ship.get_tile(get_global_mouse_position()))
@@ -57,6 +66,12 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			self.add_to_group("tiles")
 			print("Position: ", position, " index: ", index)
 
+func disableEdgeColliders():
+	
+	left_boundary.set_deferred("disabled",true)
+	up_boundary.set_deferred("disabled",true)
+	down_boundary.set_deferred("disabled",true)
+	right_boundary.set_deferred("disabled",true)
 
 #func get_clicked_tile_power():
 	#var clicked_cell = ship.local_to_map(ship.get_local_mouse_position())
