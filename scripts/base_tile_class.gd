@@ -31,6 +31,7 @@ func _ready():
 	left_boundary = $left_boundary/CollisionShape2D
 	update_index()
 	update_neighbors()
+	updateEdgeColliders()
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -66,20 +67,30 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			self.add_to_group("tiles")
 			print("Position: ", position, " index: ", index)
 
+func updateEdgeColliders():
+	if north == null:
+		up_boundary.set_deferred("disabled",false)
+	else:
+		up_boundary.set_deferred("disabled",true)
+	if east == null:
+		right_boundary.set_deferred("disabled",false)
+	else:
+		right_boundary.set_deferred("disabled",true)
+	if south == null:
+		down_boundary.set_deferred("disabled",false)
+	else:
+		down_boundary.set_deferred("disabled",true)
+	if west == null:
+		left_boundary.set_deferred("disabled",false)
+	else:
+		left_boundary.set_deferred("disabled",true)
+
+## Set this tile's side colliders to disabled
 func disableEdgeColliders():
-	
 	left_boundary.set_deferred("disabled",true)
 	up_boundary.set_deferred("disabled",true)
 	down_boundary.set_deferred("disabled",true)
 	right_boundary.set_deferred("disabled",true)
-
-#func get_clicked_tile_power():
-	#var clicked_cell = ship.local_to_map(ship.get_local_mouse_position())
-	#var data = ship.get_cell_tile_data(clicked_cell)
-	#if data:
-		#return data.get_custom_data("power")
-	#else:
-		#return 0
 
 func set_this_to_indicator_position_and_remove_indicator():
 	if indicator != null:
@@ -87,24 +98,29 @@ func set_this_to_indicator_position_and_remove_indicator():
 		indicator.queue_free()
 		update_index()
 		update_neighbors()
+		updateEdgeColliders()
 
 func self_pickup():
 	var side_inices:Array[Vector2i] = ship.get_surrounding_cells(index)
 	if east != null : 
 		east.west = null # Remove ourselves from old
 		east.update_isEdge() # Update old tile's edge status
+		east.updateEdgeColliders()
 		
 	if south != null : 
 		south.north = null
 		south.update_isEdge()
+		south.updateEdgeColliders()
 	
 	if west != null : 
 		west.east = null
 		west.update_isEdge()
+		west.updateEdgeColliders()
 	
 	if north != null : 
 		north.south = null
 		north.update_isEdge()
+		north.updateEdgeColliders()
 	
 	self.remove_from_group("tiles")
 
@@ -117,21 +133,25 @@ func update_neighbors():
 	if east != null : # Update new tile with neighbor info. 
 		east.west = self
 		east.update_isEdge()
+		east.updateEdgeColliders()
 		
 	south = ship.get_tile_from_indices(side_inices[1])
 	if south != null : 
 		south.north = self
 		south.update_isEdge()
+		south.updateEdgeColliders()
 	
 	west = ship.get_tile_from_indices(side_inices[2])
 	if west != null : 
 		west.east = self
 		west.update_isEdge()
+		west.updateEdgeColliders()
 	
 	north = ship.get_tile_from_indices(side_inices[3])
 	if north != null : 
 		north.south = self
 		north.update_isEdge()
+		north.updateEdgeColliders()
 	
 	# Set isEdge based on the number of neighbors
 	update_isEdge()
