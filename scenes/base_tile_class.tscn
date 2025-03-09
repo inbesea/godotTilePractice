@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://ciyxgwy7yxju5"]
 
-[ext_resource type="Script" path="res://scripts/base_tile_class.gd" id="1_jbbuk"]
-[ext_resource type="Shader" path="res://shaders/base_tile_class.gdshader" id="2_252vo"]
+[ext_resource type="Script" uid="uid://crfm846128cms" path="res://scripts/base_tile_class.gd" id="1_jbbuk"]
+[ext_resource type="Shader" uid="uid://cd2yhe7jvm80c" path="res://shaders/base_tile_class.gdshader" id="2_252vo"]
 [ext_resource type="Texture2D" uid="uid://dfyrw8ou6roxv" path="res://assets/icon.svg" id="2_rnwji"]
 [ext_resource type="FontFile" uid="uid://c13wt504ie55o" path="res://assets/fonts/PixelOperator8.ttf" id="4_pii3f"]
 
