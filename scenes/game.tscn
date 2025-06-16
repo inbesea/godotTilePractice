@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://bqsmsrde7lp5l"]
+[gd_scene load_steps=5 format=4 uid="uid://bqsmsrde7lp5l"]
 
 [ext_resource type="PackedScene" uid="uid://dw0nyom6s72ki" path="res://scenes/tile_map.tscn" id="1_1djd7"]
 [ext_resource type="PackedScene" uid="uid://ckex305fqbo2t" path="res://scenes/mouse_cam.tscn" id="2_c53qk"]
 [ext_resource type="PackedScene" uid="uid://dld1m66wbexfk" path="res://scenes/player.tscn" id="3_sgdwr"]
+[ext_resource type="PackedScene" uid="uid://d3138n8btx47c" path="res://scenes/ParalaxBackground.tscn" id="4_lbhrr"]
 
 [node name="Game" type="Node2D"]
 
@@ -14,3 +15,5 @@ tile_map_data = PackedByteArray("AAD/////AQAAAAAAAQD+////AQAAAAAAAQD+/wAAAQAAAAA
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("3_sgdwr")]
 position = Vector2(-8, -44)
+
+[node name="ParalaxBackground" parent="." instance=ExtResource("4_lbhrr")]
